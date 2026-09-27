@@ -100,9 +100,31 @@ public class SinglyLinkedList<E extends Comparable<E>> {
     }
 
     // write your codes here
+    // Swaps the k-th smallest element with the k-th largest element for every k.
     public void swap(){
-        
+        if (size < 2){
+            return;
+        }
 
+        // collect the nodes into a list
+        List<Node<E>> nodes = new ArrayList<>(size);
+        Node<E> current = head;
+        while (current != null) {
+            nodes.add(current);
+            current = current.getNext();
+        }
+
+        // sort the nodes by their elements (O(n log n))
+        nodes.sort((a, b) -> a.getElement().compareTo(b.getElement()));
+
+        // swap the elements of the i-th smallest and i-th largest nodes
+        for (int i = 0, j = nodes.size() - 1; i < j; i++, j--) {
+            Node<E> small = nodes.get(i);
+            Node<E> large = nodes.get(j);
+            E temp = small.element;
+            small.element = large.element;
+            large.element = temp;
+        }
     }
    
 }
